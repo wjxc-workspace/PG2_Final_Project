@@ -18,6 +18,7 @@ public:
 	}
 public:
 	bool overlap(const Shape &s) const;
+	bool overlap(const Point &s, int r) const;
 	double center_x() const { return x; }
 	double center_y() const { return y; }
 	void update_center_x(const double &x) { this->x = x; }

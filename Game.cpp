@@ -171,7 +171,12 @@ Game::game_update() {
 				is_played = true;
 			}
 
-			if(!SC->is_playing(instance)) {
+			// if(!SC->is_playing(instance)) {
+			// 	debug_log("<Game> state: change to MENU from START\n");
+			// 	state = STATE::MENU;
+			// }
+
+			if(DC->key_state[ALLEGRO_KEY_ENTER] && !DC->prev_key_state[ALLEGRO_KEY_ENTER]){
 				debug_log("<Game> state: change to MENU from START\n");
 				state = STATE::MENU;
 			}
@@ -209,7 +214,7 @@ Game::game_update() {
 			STATE req = static_cast<STATE>(Player::getPlayer()->getRequest());
 			if(req!=state){
 				scene_init(req);
-				debug_log("<Game> state: toggle from MENU\n");
+				debug_log("<Game> state: toggle from FARM\n");
 				state = req;
 			}
 			break;
@@ -218,7 +223,7 @@ Game::game_update() {
 			debug_log("<Game> state: PROFILE\n");
 			STATE req = static_cast<STATE>(Player::getPlayer()->getRequest());
 			if(req!=state){
-				debug_log("<Game> state: toggle from MENU\n");
+				debug_log("<Game> state: toggle from PROFILE\n");
 				state = req;
 			}
 			break;
@@ -227,7 +232,7 @@ Game::game_update() {
 			debug_log("<Game> state: STORE\n");
 			STATE req = static_cast<STATE>(Player::getPlayer()->getRequest());
 			if(req!=state){
-				debug_log("<Game> state: toggle from MENU\n");
+				debug_log("<Game> state: toggle from STORE\n");
 				state = req;
 			}
 			break;
@@ -240,6 +245,10 @@ Game::game_update() {
 			}
 			break;
 		} 
+		case STATE::LEVEL: {
+			debug_log("<Game> state: LEVEL\n");
+			break;
+		}
 		case STATE::END: {
 			return false;
 		}
@@ -272,12 +281,16 @@ Game::game_draw() {
 	DataCenter *DC = DataCenter::get_instance();
 	OperationCenter *OC = OperationCenter::get_instance();
 	FontCenter *FC = FontCenter::get_instance();
-
+	
 	// Flush the screen first.
 	al_clear_to_color(al_map_rgb(100, 100, 100));
 
 	switch(state) {
 		case STATE::START: {
+			auto start_menu = ImageCenter::get_instance()->get("./assets/image/scene/start.png");
+			al_draw_bitmap(start_menu, 0, 0, 0);
+
+			break;
 		} 
 		case STATE::MENU: {
 			auto MS = Menu::get();

@@ -29,10 +29,13 @@ class Facility{
 
         friend void to_json(json &j, const Facility &f){
             j = json{
-                {"id", f.id},
-                {"status", static_cast<int>(f.status)},
-                {"type", static_cast<int>(f.type)},
-                {"reward", f.reward}
+            {"id", f.id},
+            {"status", static_cast<int>(f.status)},
+            {"type", static_cast<int>(f.type)},
+            {"reward", f.reward},
+            {"x", f.x},
+            {"y", f.y},
+            {"level", f.level}
             };
         }
 
@@ -44,6 +47,9 @@ class Facility{
             f.status = static_cast<STATUS_F>(s);
             f.type = static_cast<TYPE_F>(t);
             j.at("reward").get_to(f.reward);
+            j.at("x").get_to(f.x);
+            j.at("y").get_to(f.y);
+            j.at("level").get_to(f.level);
         }
 
         Facility(): id{i++}, status{EMPTY}, type{UNDETERMINE}, reward{0}, x{0}, y{0}, level{1}{
