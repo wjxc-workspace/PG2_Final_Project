@@ -6,13 +6,13 @@ MENU:
     draw();
         for(u : land_settings) u.draw()
 
-	1. go to LAND_SETTING(FARM)
-    2. go to level
+	1. go to FARM
+    2. go to LEVEL
     3. go to PROFILE
     4. go to STORE
 
 
-LAND_SETTING(FARM):
+FARM:
 
 data: 
 enum STATE_L{
@@ -84,7 +84,17 @@ Objects:
 	2. periodically: update(), draw()
     3. setFacility()
 
-3. Monsters: id, type, level, exp
+3. Monsters: id, type, species, level, exp
+enum TYPE_M{
+    //types of monsters
+}
+
+enum SPECIES_M{
+    WATER,
+    FIRE,
+    WIND,
+    LIGHTNING
+}
 	1. create()
 	2. load(), write()
 	3. update()

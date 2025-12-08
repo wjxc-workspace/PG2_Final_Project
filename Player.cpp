@@ -50,7 +50,8 @@ bool Player::loadFacilties(){
             land_settings.clear();
             for(int i=0; i<Player::MAX_LAND; i++){
                 Facility f = Facility();
-                f.setPos(LAND_POS[0].first, LAND_POS->second);
+                f.setPos(LAND_POS[i].first, LAND_POS[i].second);
+                land_settings.push_back(f);
             }
             return true;
         }
@@ -72,25 +73,35 @@ bool Player::loadFacilties(){
 }
 
 void Player::load(){
-    // if(!loadFacilties()){
-    //     debug_log("ERROR: fail to load Facilities data!\n");
+    if(!loadFacilties()){
+        debug_log("ERROR: fail to load Facilities data!\n");
+    }
+
+    // land_settings.clear();
+    // for(int i=0; i<Player::MAX_LAND; i++){
+    //     Facility f = Facility();
+    //     f.setPos(LAND_POS[i].first, LAND_POS[i].second);
+    //     land_settings.push_back(f);
     // }
 
-    land_settings.clear();
-    for(int i=0; i<Player::MAX_LAND; i++){
-        Facility f = Facility();
-        f.setPos(LAND_POS[i].first, LAND_POS[i].second);
-        land_settings.push_back(f);
-    }
+
     getPlayer()->setrequest(static_cast<int>(Game::STATE::MENU));
 }
 
 void Player::update(){
-
+    //TODO
 }
 
 void Player::write(){
     if(!saveFacilities()){
         debug_log("ERROR: fail to save Facilities data!\n");
     }
+}
+
+bool Player::loadMonsters(){
+
+}
+
+bool Player::saveMonsters(){
+
 }

@@ -68,3 +68,7 @@ Circle::overlap(const Shape &s) const {
 	}
 	GAME_ASSERT(false, "Unknown ShapeType.");
 }
+
+bool Point::overlap(const Point &s, int r)const{
+	return (x-s.x)*(x-s.x) + (y-s.y)*(y-s.y) <= r*r;
+}
