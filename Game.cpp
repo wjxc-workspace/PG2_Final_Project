@@ -13,8 +13,10 @@
 #include <allegro5/allegro_acodec.h>
 #include <vector>
 #include <cstring>
+#include <optional>
 #include "scene/Menu.h"
 #include "scene/Farm.h"
+#include "scene/LevelMenu.h"
 #include "scene/Store.h"
 #include "scene/Profile.h"
 
@@ -143,6 +145,7 @@ Game::game_init() {
 	
 	//scene init
 	Menu::get()->init();
+	LevelMenu::getInstance()->init();
 
 	// game start
 	background = IC->get(background_img_path);
@@ -256,7 +259,11 @@ Game::game_update() {
 			break;
 		} 
 		case STATE::LEVEL: {
-			debug_log("<Game> state: LEVEL\n");
+			LevelMenu::getInstance()->update();
+			STATE req = static_cast<STATE>(Player::getPlayer()->getRequest());
+			if(req != state){
+				state = req;
+			}
 			break;
 		}
 		case STATE::END: {
@@ -322,6 +329,10 @@ Game::game_draw() {
 			PS->draw();
 			break;
 		}
+		case STATE::LEVEL: {
+			LevelMenu::getInstance()->draw();
+			break;
+		}
 		case STATE::PAUSE: {
 			// game layout cover
 			al_draw_filled_rectangle(0, 0, DC->window_width, DC->window_height, al_map_rgba(50, 50, 50, 64));
@@ -345,6 +356,10 @@ void Game::scene_init(STATE st){
 	}
 	case STATE::FARM:{
 		Farm::get()->init();
+		break;
+	}
+	case STATE::LEVEL: {
+		LevelMenu::getInstance()->scene_init();
 		break;
 	}
 	case STATE::STORE:{

@@ -8,7 +8,7 @@
 #include "../shapes/Point.h"
 
 class Player;
-class Level;
+class LevelMenu;
 class Monster;
 class Tower;
 class Bullet;
@@ -72,7 +72,6 @@ public:
 	 * @see Player
 	 */
 	Player *player;
-	
 	
 private:
 	DataCenter();
